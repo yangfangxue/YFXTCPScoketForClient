@@ -21,11 +21,10 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
     //1.创建客户端scoket
     self.clientSocket = [[GCDAsyncSocket alloc] initWithDelegate:self delegateQueue:dispatch_get_main_queue()];
     //2.链接服务器socket 192.168.0.113为服务端IP
-    BOOL result = [self.clientSocket connectToHost:@"192.168.0.113" onPort:8000 error:nil];
+    BOOL result = [self.clientSocket connectToHost:@"192.168.0.109" onPort:8000 error:nil];
     //判断链接
     if (result) {
         //成功
@@ -34,7 +33,6 @@
         //失败
         NSLog(@"链接失败");
     }
-    
 }
 #pragma mark ------------
 //客户端链接服务器成功
@@ -52,9 +50,9 @@
     [self.clientSocket readDataWithTimeout:-1 tag:0];
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
+    
     //给服务端发送消息
     [self.clientSocket writeData:[@"我是客户端" dataUsingEncoding:NSUTF8StringEncoding] withTimeout:-1 tag:0];
-    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
